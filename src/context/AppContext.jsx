@@ -53,11 +53,38 @@ export const AppProvider = ({ children }) => {
 
   // 复制到剪贴板
   const copyToClipboard = async (text) => {
+    // 方案1: 尝试使用现代 Clipboard API
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('已复制到剪贴板', 'fa-check-circle');
+        return;
+      } catch (err) {
+        console.error('Clipboard API failed:', err);
+      }
+    }
+
+    // 方案2: 降级使用传统的 execCommand 方法
     try {
-      await navigator.clipboard.writeText(text);
-      showToast('已复制到剪贴板', 'fa-check-circle');
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textArea);
+
+      if (successful) {
+        showToast('已复制到剪贴板', 'fa-check-circle');
+      } else {
+        throw new Error('execCommand failed');
+      }
     } catch (err) {
-      console.error('Failed to copy:', err);
+      console.error('All copy methods failed:', err);
       showToast('复制失败，请手动复制', 'fa-exclamation-circle');
     }
   };
