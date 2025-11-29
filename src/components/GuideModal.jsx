@@ -20,7 +20,7 @@ const GuideModal = () => {
   const getTitle = () => {
     switch (guideModal.type) {
       case 'claude': return 'Claude Code 配置';
-      case 'openai': return 'OpenAI SDK 接入';
+      case 'openai': return 'Claude Code 安装教程';
       case 'api': return 'API 调用示例';
       default: return '接入指南';
     }
@@ -63,47 +63,66 @@ const GuideModal = () => {
         return (
           <div className="space-y-4">
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800">
-              <h4 className="font-bold text-blue-800 dark:text-blue-300 text-lg mb-2">OpenAI SDK 接入</h4>
-              <p className="text-sm text-blue-600 dark:text-blue-400 mb-4">使用 OpenAI 官方 SDK，兼容所有 Claude 模型</p>
+              <h4 className="font-bold text-blue-800 dark:text-blue-300 text-lg mb-2 flex items-center">
+                <i className="fas fa-rocket mr-2"></i> Claude Code 安装教程
+              </h4>
+              <p className="text-sm text-blue-600 dark:text-blue-400 mb-4">Anthropic 官方 CLI 工具，Claude Sonnet 4.5 驱动</p>
 
+              {/* 安装步骤 */}
               <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-blue-100 dark:border-blue-700/50 mb-3">
-                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3">Python 示例</h5>
-                <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto">
-                  <code>{`from openai import OpenAI
-
-client = OpenAI(
-    api_key="your-api-key",
-    base_url="https://code.giot.edu.kg/v1"
-)
-
-response = client.chat.completions.create(
-    model="claude-sonnet-4-5",
-    messages=[
-        {"role": "user", "content": "你好！"}
-    ]
-)
-
-print(response.choices[0].message.content)`}</code>
-                </pre>
+                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center">
+                  <span className="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span>
+                  安装 Node.js 和 Claude Code
+                </h5>
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">访问 <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">nodejs.org</a> 安装 Node.js 18+</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">安装 Claude Code CLI：</p>
+                    <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg text-xs overflow-x-auto">
+                      <code>npm install -g @anthropic-ai/claude-code</code>
+                    </pre>
+                  </div>
+                </div>
               </div>
 
+              {/* 配置 API */}
+              <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-blue-100 dark:border-blue-700/50 mb-3">
+                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center">
+                  <span className="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span>
+                  获取 API 密钥
+                </h5>
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-3 rounded-r-lg mb-3">
+                  <p className="text-xs text-yellow-800 dark:text-yellow-300">
+                    访问 <a href="https://code.giot.edu.kg" target="_blank" rel="noopener noreferrer" className="font-medium underline">慧智AI 控制台</a> 获取 API 密钥
+                  </p>
+                </div>
+              </div>
+
+              {/* settings.json 配置 */}
               <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-blue-100 dark:border-blue-700/50">
-                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3">Node.js 示例</h5>
-                <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto">
-                  <code>{`import OpenAI from 'openai';
-
-const client = new OpenAI({
-  apiKey: 'your-api-key',
-  baseURL: 'https://code.giot.edu.kg/v1'
-});
-
-const response = await client.chat.completions.create({
-  model: 'claude-sonnet-4-5',
-  messages: [{ role: 'user', content: '你好！' }]
-});
-
-console.log(response.choices[0].message.content);`}</code>
+                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center">
+                  <span className="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">3</span>
+                  配置 settings.json
+                </h5>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                  编辑配置文件 <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-xs">~/.claude/settings.json</code>
+                </p>
+                <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg text-xs overflow-x-auto mb-3">
+                  <code>{`{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your-api-key",
+    "ANTHROPIC_BASE_URL": "https://code.giot.edu.kg"
+  }
+}`}</code>
                 </pre>
+                <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-400 p-3 rounded-r-lg">
+                  <p className="text-xs text-green-800 dark:text-green-300 mb-2 font-medium">启动使用：</p>
+                  <pre className="bg-gray-900 text-gray-100 p-2 rounded text-xs">
+                    <code>cd your-project-folder{'\n'}claude</code>
+                  </pre>
+                </div>
               </div>
             </div>
           </div>

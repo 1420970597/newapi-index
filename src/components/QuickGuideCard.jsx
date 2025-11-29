@@ -24,10 +24,10 @@ const QuickGuideCard = () => {
           className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-gray-100 dark:border-gray-600 hover:border-blue-200 dark:hover:border-blue-700 transition-all text-left group"
         >
           <div className="flex items-center mb-1">
-            <i className="fas fa-code text-gray-400 group-hover:text-blue-500 mr-2 transition-colors"></i>
-            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">OpenAI SDK</span>
+            <i className="fas fa-rocket text-gray-400 group-hover:text-blue-500 mr-2 transition-colors"></i>
+            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">Claude Code 安装</span>
           </div>
-          <p className="text-xs text-gray-400 dark:text-gray-500">通用接入方式</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">详细安装教程</p>
         </button>
         <button
           onClick={() => openGuideModal('api')}
