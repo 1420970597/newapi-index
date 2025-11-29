@@ -4,13 +4,13 @@ const StatsCard = ({ modelCount }) => {
       <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent dark:from-green-900/10 dark:to-transparent opacity-50"></div>
       <div className="relative z-10">
         <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">
-          {modelCount || '--'}
+          {modelCount || '10'}
         </div>
         <div className="text-sm text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">
-          支持模型数量
+          Claude 模型
         </div>
         <div className="mt-4 inline-flex items-center text-xs text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded-lg">
-          <i className="fas fa-check-circle mr-1"></i> 实时更新
+          <i className="fas fa-check-circle mr-1"></i> 包含最新 Opus 4.5
         </div>
       </div>
     </div>

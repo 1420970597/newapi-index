@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   kfc-api-index:
     container_name: kfc-api-index

@@ -4,70 +4,75 @@ const FAQSection = () => {
       icon: 'fa-gift',
       iconColor: 'text-blue-500',
       hoverBorder: 'hover:border-blue-100 dark:hover:border-blue-900',
-      question: '是否完全免费？',
+      question: '充值有优惠吗？',
       answer: (
         <>
-          <span className="font-semibold text-green-600 dark:text-green-400">是，永久免费。</span>
-          采用公平限流策略以保障服务稳定。致力于让每个人都能体验前沿的人工智能技术。
+          <span className="font-semibold text-green-600 dark:text-green-400">有，充值享 3 折优惠！</span>
+          汇率为 1:1（1美金=1人民币），充值后可享受超值折扣，大幅降低使用成本。
         </>
       ),
     },
     {
-      icon: 'fa-hands-helping',
+      icon: 'fa-server',
       iconColor: 'text-purple-500',
       hoverBorder: 'hover:border-purple-100 dark:hover:border-purple-900',
-      question: '如何参与贡献？',
-      answer: '可以在投喂站进行投喂，欢迎开源用户共同参与项目建设。',
+      question: '账号来源是什么？',
+      answer: '我们使用自建的 Claude MAX 官方账号作为转发源，确保服务稳定性和安全性，支持最新的 Claude 模型。',
     },
     {
-      icon: 'fa-user-plus',
+      icon: 'fa-brain',
       iconColor: 'text-green-500',
       hoverBorder: 'hover:border-green-100 dark:hover:border-green-900',
-      question: '什么时候开放注册？',
+      question: '支持思考模式吗？',
       answer: (
         <>
           <span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-0.5 rounded text-xs font-bold">
-            每周四
+            全面支持
           </span>
-          会定时开放注册，或关注公告获取其他开放时间。
+          {' '}所有模型均支持 Extended Thinking（思考模式），让 AI 进行更深入的推理和分析。
         </>
       ),
     },
     {
-      icon: 'fa-exclamation-circle',
+      icon: 'fa-book-open',
       iconColor: 'text-red-500',
       hoverBorder: 'hover:border-red-100 dark:hover:border-red-900',
-      question: '报错 No active API keys...？',
-      answer: '通常是因为 GPT-Load 的 Key Pool 暂时失效。请尝试更换模型，或等待一段时间后重试。',
-    },
-    {
-      icon: 'fa-ban',
-      iconColor: 'text-yellow-500',
-      hoverBorder: 'hover:border-yellow-100 dark:hover:border-yellow-900',
-      question: '是否可以 NSFW？',
+      question: '上下文长度是多少？',
       answer: (
         <>
-          <span className="font-bold text-red-500">不可以。</span>
-          严禁生成色情、暴力等违规内容，违者封号。哒咩呦！
+          支持 <span className="font-bold text-blue-600 dark:text-blue-400">1M tokens</span> 超长上下文，
+          可以处理大型文档、长对话历史等复杂场景。
         </>
       ),
     },
     {
-      icon: 'fa-tachometer-alt',
-      iconColor: 'text-indigo-500',
-      hoverBorder: 'hover:border-indigo-100 dark:hover:border-indigo-900',
-      question: '可以开启高并发吗？',
-      answer: '默认限制 12 RPM。如有特殊场景需求，请联系管理员申请。',
-    },
-    {
-      icon: 'fa-share-alt',
-      iconColor: 'text-orange-500',
-      hoverBorder: 'hover:border-orange-100 dark:hover:border-orange-900',
-      question: '可以将 Key 分享给朋友吗？',
+      icon: 'fa-rocket',
+      iconColor: 'text-yellow-500',
+      hoverBorder: 'hover:border-yellow-100 dark:hover:border-yellow-900',
+      question: '支持最新的 Opus 4.5 吗？',
       answer: (
         <>
-          <span className="font-bold text-red-500">不可以。</span>
-          二次分发会导致滥用，影响其他用户的正常使用。请让朋友自行注册获取 Key。
+          <span className="font-bold text-green-500">是的！</span>
+          我们支持最新的 Claude Opus 4.5 模型，性能强大，适合复杂任务。查看模型价格了解更多。
+        </>
+      ),
+    },
+    {
+      icon: 'fa-shield-alt',
+      iconColor: 'text-indigo-500',
+      hoverBorder: 'hover:border-indigo-100 dark:hover:border-indigo-900',
+      question: '服务稳定吗？',
+      answer: '使用 Claude MAX 官方账号，服务可用性 99.9%+，配备专业运维团队，确保 API 稳定运行。',
+    },
+    {
+      icon: 'fa-question-circle',
+      iconColor: 'text-orange-500',
+      hoverBorder: 'hover:border-orange-100 dark:hover:border-orange-900',
+      question: '如何开始使用？',
+      answer: (
+        <>
+          注册账号 → 充值（享 3 折优惠）→ 获取 API Key →
+          参考接入指南配置客户端 → 开始使用 Claude API。简单快捷！
         </>
       ),
       colSpan: 'md:col-span-2',

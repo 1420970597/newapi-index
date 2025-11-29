@@ -43,7 +43,7 @@ function App() {
 
         {/* Footer */}
         <footer className="max-w-7xl mx-auto mt-8 text-center text-gray-400 dark:text-gray-600 text-sm pb-8">
-          <p>&copy; 2025 KFC API 公益站. Designed for Developers.</p>
+          <p>&copy; 2025 慧智AI. 专业的 Claude API 服务商.</p>
         </footer>
 
         {/* Global Components */}

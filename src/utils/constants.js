@@ -1,43 +1,97 @@
 export const API_CONFIG = {
-  url: 'https://quiet-darkness-94e7.kyxjames23.workers.dev/v1/models',
-  keys: [
-    'sk-7IyfmJMIoN14FkZ0jQMj49zzHUPx70gahWuOX789hwQA2ZqE',
-    'sk-OrV3NW0dmTln3IcWegJEkSqcsPl5qipVnUWbKv4fpEiUHSoc'
-  ]
+  url: 'https://your-api-url.com/v1/models', // 请替换为实际的API地址
+  keys: ['your-api-key'] // 请替换为实际的API密钥
 };
 
+// 慧智AI Claude 模型列表
 export const FALLBACK_MODELS = [
-  "gpt-4.1-mini", "gpt-4.1-nano", "gpt-4o", "gpt-4o-mini", "gpt-oss-120b", "gpt-oss-20b",
-  "claude-3-5-sonnet", "claude-3-haiku",
-  "cursor2-claude-4-sonnet", "cursor2-claude-4.1-opus", "cursor2-claude-4.5-sonnet",
-  "cursor2-gpt-5", "cursor2-gpt-5-codex", "cursor2-gpt-5-mini",
-  "cursor2-grok-3", "cursor2-grok-3-mini", "cursor2-grok-4",
-  "DeepSeek-V3.1", "DeepSeek-V3.1-Terminus", "DeepSeek-V3.2-Exp",
-  "gemini-2.0-flash", "gemini-2.0-flash-lite-preview", "gemini-2.5-flash", "gemini-2.5-flash-lite",
-  "gemini-2.5-flash-lite-preview-09-2025", "gemini-2.5-pro", "gemini-2.5-pro-preview-03-25",
-  "gemini-2.5-pro-preview-03-25-search", "gemini-2.5-pro-preview-05-06", "gemini-2.5-pro-preview-05-06-search",
-  "gemini-2.5-pro-preview-06-05", "gemini-2.5-pro-preview-06-05-search", "gemini-3-pro-preview",
-  "GLM-4.5", "GLM-4.5-Air", "GLM-4.5V", "GLM-4.6",
-  "grok-4.1-fast",
-  "Kimi-K2-Instruct-0905",
-  "MiniMax-M2",
-  "Qwen/Qwen3-8B", "Qwen3-235B-A22B-Instruct-2507", "Qwen3-235B-A22B-Thinking-2507",
-  "Qwen3-Coder-Plus", "Qwen3-Max", "Qwen3-Next-80B-A3B-Instruct", "Qwen3-Next-80B-A3B-Thinking",
-  "Qwen3-VL-235B-A22B-Instruct", "Qwen3-VL-235B-A22B-Thinking", "Qwen3-VL-30B-A3B-Instruct", "Qwen3-VL-30B-A3B-Thinking",
-  "tencent/Hunyuan-MT-7B",
-  "THUDM/glm-4-9b-chat"
+  {
+    id: "claude-3-5-haiku-20241022",
+    name: "Claude 3.5 Haiku",
+    input: "¥0.8000/M",
+    output: "¥4.0000/M",
+    context: "200K",
+    features: ["快速响应", "高性价比"]
+  },
+  {
+    id: "claude-3-5-sonnet-20241022",
+    name: "Claude 3.5 Sonnet",
+    input: "¥3.0000/M",
+    output: "¥15.0000/M",
+    context: "200K",
+    features: ["平衡性能", "推荐使用"]
+  },
+  {
+    id: "claude-3-7-sonnet-20250219",
+    name: "Claude 3.7 Sonnet",
+    input: "¥3.0000/M",
+    output: "¥15.0000/M",
+    context: "200K",
+    features: ["最新版本", "性能提升"]
+  },
+  {
+    id: "claude-haiku-4-5-20251001",
+    name: "Claude Haiku 4.5",
+    input: "¥1.0000/M",
+    output: "¥5.0000/M",
+    context: "1M",
+    features: ["超长上下文", "思考模式"]
+  },
+  {
+    id: "claude-opus-4-1-20250805",
+    name: "Claude Opus 4.1",
+    input: "¥15.0000/M",
+    output: "¥75.0000/M",
+    context: "1M",
+    features: ["顶级性能", "思考模式", "超长上下文"]
+  },
+  {
+    id: "claude-opus-4-20250514",
+    name: "Claude Opus 4",
+    input: "¥15.0000/M",
+    output: "¥75.0000/M",
+    context: "1M",
+    features: ["旗舰模型", "思考模式"]
+  },
+  {
+    id: "claude-opus-4-5-20251101",
+    name: "Claude Opus 4.5",
+    input: "¥5.0000/M",
+    output: "¥25.0000/M",
+    context: "1M",
+    features: ["最新旗舰", "思考模式", "超长上下文"]
+  },
+  {
+    id: "claude-sonnet-4-20250514",
+    name: "Claude Sonnet 4",
+    input: "¥15.0000/M",
+    output: "¥75.0000/M",
+    context: "1M",
+    features: ["高级模型", "思考模式"]
+  },
+  {
+    id: "claude-sonnet-4-5",
+    name: "Claude Sonnet 4.5",
+    input: "¥3.0000/M",
+    output: "¥15.0000/M",
+    context: "1M",
+    features: ["推荐", "思考模式", "超长上下文"]
+  },
+  {
+    id: "claude-sonnet-4-5-20250929",
+    name: "Claude Sonnet 4.5",
+    input: "¥3.0000/M",
+    output: "¥15.0000/M",
+    context: "1M",
+    features: ["最新版", "思考模式", "超长上下文"]
+  }
 ];
 
 export const categorizeModel = (modelName) => {
   const name = modelName.toLowerCase();
-  if (name.startsWith('gpt') || name.includes('/gpt')) return 'gpt';
-  if (name.startsWith('claude') || name.includes('/claude')) return 'claude';
-  if (name.startsWith('gemini') || name.includes('/gemini')) return 'gemini';
-  if (name.startsWith('glm') || name.includes('/glm')) return 'glm';
-  if (name.startsWith('qwen') || name.includes('/qwen')) return 'qwen';
-  if (name.startsWith('deepseek') || name.includes('/deepseek')) return 'deepseek';
-  if (name.startsWith('grok') || name.includes('/grok') || name.includes('grok-')) return 'grok';
-  if (name.startsWith('kimi') || name.includes('/kimi') || name.includes('moonshot')) return 'kimi';
+  if (name.includes('haiku')) return 'haiku';
+  if (name.includes('sonnet')) return 'sonnet';
+  if (name.includes('opus')) return 'opus';
   return 'other';
 };
 

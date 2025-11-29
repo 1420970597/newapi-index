@@ -45,4 +45,5 @@ coverage
 .env.*.local
 
 # 其他
-参考.html
+*.html
+!index.html

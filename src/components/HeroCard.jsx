@@ -11,7 +11,7 @@ const HeroCard = () => {
       <div className="relative z-10">
         <div className="flex justify-between items-start mb-6">
           <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wide uppercase">
-            公益 · 免费 · 高速
+            专业 · 稳定 · 高速
           </div>
           <button
             onClick={toggleTheme}
@@ -22,13 +22,15 @@ const HeroCard = () => {
         </div>
 
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
-          KFC API <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">公益站</span>
+          慧智AI <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Claude API</span>
         </h1>
         <p className="text-lg text-gray-500 dark:text-gray-400 max-w-xl mb-8 leading-relaxed">
-          <span className="font-semibold text-blue-600 dark:text-blue-400">K</span>indness (善意) · <span className="font-semibold text-blue-600 dark:text-blue-400">F</span>riendly (友好) · <span className="font-semibold text-blue-600 dark:text-blue-400">C</span>ommunity (社区)<br />
-          <span className="text-sm italic opacity-80">"A friendly community full of kindness."</span><br />
-          一个充满善意与友好的社区服务站，聚合全球领先 AI 模型，为开发者和研究者提供免费、稳定的 API 接入服务。
+          专业的 Claude API 服务商，自建 Claude MAX 账号转发<br />
+          <span className="font-semibold text-blue-600 dark:text-blue-400">✨ 支持思考模式</span> ·
+          <span className="font-semibold text-blue-600 dark:text-blue-400"> 📚 1M 超长上下文</span> ·
+          <span className="font-semibold text-blue-600 dark:text-blue-400"> 🚀 最新 Opus 4.5</span><br />
+          <span className="text-sm italic opacity-80">汇率 1:1 (1美金=1人民币) · 充值享 3 折优惠</span>
         </p>
 
         <div className="flex flex-wrap gap-3">
@@ -39,10 +41,10 @@ const HeroCard = () => {
             <i className="fas fa-rocket mr-2"></i> 开始使用
           </button>
           <button
-            onClick={() => window.open('https://kfc-api.sxxe.net/console/token', '_blank')}
+            onClick={() => scrollToElement('model-pricing')}
             className="px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center"
           >
-            <i className="fas fa-key mr-2"></i> 获取 Key
+            <i className="fas fa-list mr-2"></i> 模型价格
           </button>
           <button
             onClick={() => scrollToElement('faq-section')}

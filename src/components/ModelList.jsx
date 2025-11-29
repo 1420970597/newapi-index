@@ -1,86 +1,35 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { API_CONFIG, FALLBACK_MODELS, categorizeModel } from '../utils/constants';
+import { FALLBACK_MODELS, categorizeModel } from '../utils/constants';
 
 const ModelList = ({ onModelCountChange }) => {
-  const { copyToClipboard, showToast } = useApp();
+  const { copyToClipboard } = useApp();
   const [models, setModels] = useState([]);
   const [filteredModels, setFilteredModels] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
 
   const categories = [
     { id: 'all', label: '全部' },
-    { id: 'gpt', label: 'GPT' },
-    { id: 'claude', label: 'Claude' },
-    { id: 'gemini', label: 'Gemini' },
-    { id: 'deepseek', label: 'DeepSeek' },
-    { id: 'glm', label: 'GLM' },
-    { id: 'qwen', label: 'Qwen' },
-    { id: 'grok', label: 'Grok' },
-    { id: 'kimi', label: 'Kimi' },
-    { id: 'other', label: '其他' },
+    { id: 'haiku', label: 'Haiku' },
+    { id: 'sonnet', label: 'Sonnet' },
+    { id: 'opus', label: 'Opus' },
   ];
 
   useEffect(() => {
-    loadModels();
+    // 直接使用预设的模型数据
+    setModels(FALLBACK_MODELS);
+    onModelCountChange(FALLBACK_MODELS.length);
   }, []);
 
   useEffect(() => {
     filterModels(activeCategory);
   }, [models, activeCategory]);
 
-  const loadModels = async () => {
-    try {
-      const fetchPromises = API_CONFIG.keys.map(key =>
-        fetch(API_CONFIG.url, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${key}`,
-            'Content-Type': 'application/json'
-          },
-          mode: 'cors',
-          credentials: 'omit'
-        })
-          .then(res => {
-            if (!res.ok) throw new Error(`Network error: ${res.status}`);
-            return res.json();
-          })
-          .then(data => {
-            return (data.data || data).map(m => m.id || m);
-          })
-          .catch(e => {
-            console.warn('Single API fetch failed:', e);
-            return [];
-          })
-      );
-
-      const results = await Promise.all(fetchPromises);
-      const combinedModels = results.flat();
-      const allModels = [...new Set(combinedModels)];
-
-      if (allModels.length === 0) {
-        throw new Error('All API requests failed');
-      }
-
-      setModels(allModels);
-      onModelCountChange(allModels.length);
-      setLoading(false);
-    } catch (e) {
-      console.warn('API fetch failed, using fallback data:', e);
-      setModels(FALLBACK_MODELS);
-      onModelCountChange(FALLBACK_MODELS.length);
-      showToast('无法连接服务器，显示预设模型', 'fa-exclamation-circle');
-      setLoading(false);
-    }
-  };
-
   const filterModels = (category) => {
     if (category === 'all') {
       setFilteredModels(models);
     } else {
-      const filtered = models.filter(m => categorizeModel(m) === category);
+      const filtered = models.filter(m => categorizeModel(m.id) === category);
       setFilteredModels(filtered);
     }
   };
@@ -89,43 +38,15 @@ const ModelList = ({ onModelCountChange }) => {
     setActiveCategory(category);
   };
 
-  const handleModelClick = (model) => {
-    copyToClipboard(model);
+  const handleModelClick = (modelId) => {
+    copyToClipboard(modelId);
   };
 
-  if (loading) {
-    return (
-      <div className="col-span-1 md:col-span-4 lg:col-span-6 bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-bento bento-card min-h-[400px]">
-        <div className="flex flex-col items-center justify-center py-20">
-          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-500 dark:text-gray-400">正在加载模型数据...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="col-span-1 md:col-span-4 lg:col-span-6 bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-bento bento-card min-h-[400px]">
-        <div className="flex flex-col items-center justify-center py-20">
-          <i className="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
-          <p className="text-gray-500 dark:text-gray-400 mb-4">加载失败</p>
-          <button
-            onClick={loadModels}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-          >
-            重试
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="col-span-1 md:col-span-4 lg:col-span-6 bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-bento bento-card min-h-[400px]">
+    <div id="model-pricing" className="col-span-1 md:col-span-4 lg:col-span-6 bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-bento bento-card min-h-[400px]">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-          <i className="fas fa-cubes text-blue-500 mr-3"></i> 模型列表
+          <i className="fas fa-tags text-blue-500 mr-3"></i> 模型价格
         </h2>
 
         {/* Filter Tabs */}
@@ -134,10 +55,11 @@ const ModelList = ({ onModelCountChange }) => {
             <button
               key={category.id}
               onClick={() => handleCategoryChange(category.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${activeCategory === category.id
+              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                activeCategory === category.id
                   ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
                   : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
-                }`}
+              }`}
             >
               {category.label}
             </button>
@@ -146,17 +68,64 @@ const ModelList = ({ onModelCountChange }) => {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredModels.map(model => (
           <div
-            key={model}
-            className="bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 text-gray-600 dark:text-gray-300 text-xs font-medium px-3 py-2 rounded-lg text-center cursor-pointer transition-colors truncate"
-            title={model}
-            onClick={() => handleModelClick(model)}
+            key={model.id}
+            className="bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-700 rounded-xl p-4 cursor-pointer transition-all group"
+            onClick={() => handleModelClick(model.id)}
           >
-            {model}
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex-1">
+                <h3 className="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  {model.name}
+                </h3>
+                <code className="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">
+                  {model.id}
+                </code>
+              </div>
+              <i className="fas fa-copy text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+            </div>
+
+            <div className="space-y-2 mb-3">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-600 dark:text-gray-400">输入:</span>
+                <span className="font-semibold text-gray-900 dark:text-white">{model.input}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-600 dark:text-gray-400">输出:</span>
+                <span className="font-semibold text-gray-900 dark:text-white">{model.output}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-600 dark:text-gray-400">上下文:</span>
+                <span className="font-semibold text-blue-600 dark:text-blue-400">{model.context}</span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-1">
+              {model.features.map((feature, index) => (
+                <span
+                  key={index}
+                  className="text-xs px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                >
+                  {feature}
+                </span>
+              ))}
+            </div>
           </div>
         ))}
+      </div>
+
+      <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+        <div className="flex items-start gap-3">
+          <i className="fas fa-info-circle text-blue-600 dark:text-blue-400 mt-1"></i>
+          <div className="text-sm text-gray-700 dark:text-gray-300">
+            <p className="font-semibold mb-1">💰 优惠说明</p>
+            <p>• 汇率：1 美金 = 1 人民币</p>
+            <p>• 充值享受 <span className="font-bold text-blue-600 dark:text-blue-400">3 折优惠</span></p>
+            <p>• 点击模型卡片可复制模型 ID</p>
+          </div>
+        </div>
       </div>
     </div>
   );

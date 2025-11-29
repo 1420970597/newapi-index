@@ -10,44 +10,44 @@ const QuickGuideCard = () => {
       </h3>
       <div className="grid grid-cols-2 gap-3">
         <button
-          onClick={() => openGuideModal('kilocode')}
-          className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-gray-100 dark:border-gray-600 hover:border-blue-200 dark:hover:border-blue-700 transition-all text-left group"
-        >
-          <div className="flex items-center mb-1">
-            <i className="fas fa-code text-gray-400 group-hover:text-blue-500 mr-2 transition-colors"></i>
-            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">Kilocode</span>
-          </div>
-          <p className="text-xs text-gray-400 dark:text-gray-500">IDE 插件配置</p>
-        </button>
-        <button
           onClick={() => openGuideModal('claude')}
           className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 border border-gray-100 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-700 transition-all text-left group"
         >
           <div className="flex items-center mb-1">
             <i className="fas fa-brain text-gray-400 group-hover:text-purple-500 mr-2 transition-colors"></i>
-            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">Claude</span>
+            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">Claude Code</span>
           </div>
-          <p className="text-xs text-gray-400 dark:text-gray-500">命令行工具</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">CLI 工具配置</p>
         </button>
         <button
-          onClick={() => openGuideModal('cherry')}
-          className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-pink-50 dark:hover:bg-pink-900/20 border border-gray-100 dark:border-gray-600 hover:border-pink-200 dark:hover:border-pink-700 transition-all text-left group"
+          onClick={() => openGuideModal('openai')}
+          className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-gray-100 dark:border-gray-600 hover:border-blue-200 dark:hover:border-blue-700 transition-all text-left group"
         >
           <div className="flex items-center mb-1">
-            <i className="fas fa-desktop text-gray-400 group-hover:text-pink-500 mr-2 transition-colors"></i>
-            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">Cherry</span>
+            <i className="fas fa-code text-gray-400 group-hover:text-blue-500 mr-2 transition-colors"></i>
+            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">OpenAI SDK</span>
           </div>
-          <p className="text-xs text-gray-400 dark:text-gray-500">桌面客户端</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">通用接入方式</p>
         </button>
         <button
-          onClick={() => window.open('https://kfc-api.sxxe.net/console', '_blank')}
+          onClick={() => openGuideModal('api')}
           className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-green-50 dark:hover:bg-green-900/20 border border-gray-100 dark:border-gray-600 hover:border-green-200 dark:hover:border-green-700 transition-all text-left group"
         >
           <div className="flex items-center mb-1">
-            <i className="fas fa-external-link-alt text-gray-400 group-hover:text-green-500 mr-2 transition-colors"></i>
-            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">Console</span>
+            <i className="fas fa-plug text-gray-400 group-hover:text-green-500 mr-2 transition-colors"></i>
+            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">API 文档</span>
           </div>
-          <p className="text-xs text-gray-400 dark:text-gray-500">控制台</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">接口调用示例</p>
+        </button>
+        <button
+          onClick={() => window.open('https://your-console-url.com', '_blank')}
+          className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 border border-gray-100 dark:border-gray-600 hover:border-indigo-200 dark:hover:border-indigo-700 transition-all text-left group"
+        >
+          <div className="flex items-center mb-1">
+            <i className="fas fa-external-link-alt text-gray-400 group-hover:text-indigo-500 mr-2 transition-colors"></i>
+            <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm">管理控制台</span>
+          </div>
+          <p className="text-xs text-gray-400 dark:text-gray-500">充值和管理</p>
         </button>
       </div>
     </div>

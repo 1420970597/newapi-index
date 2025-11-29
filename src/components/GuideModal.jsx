@@ -19,118 +19,128 @@ const GuideModal = () => {
 
   const getTitle = () => {
     switch (guideModal.type) {
-      case 'kilocode': return 'Kilocode 配置';
       case 'claude': return 'Claude Code 配置';
-      case 'cherry': return 'Cherry Studio 配置';
+      case 'openai': return 'OpenAI SDK 接入';
+      case 'api': return 'API 调用示例';
       default: return '接入指南';
     }
   };
 
   const getContent = () => {
     switch (guideModal.type) {
-      case 'kilocode':
-        return (
-          <div className="space-y-4">
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h4 className="font-bold text-blue-800 dark:text-blue-300 text-lg">Kilocode 配置</h4>
-                  <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">强大的 AI 编程助手</p>
-                </div>
-              </div>
-
-              <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-blue-100 dark:border-blue-700/50">
-                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center">
-                  <i className="fas fa-sliders-h mr-2 text-blue-500"></i> 配置步骤
-                </h5>
-                <ol className="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 space-y-2">
-                  <li>打开 <strong>Kilocode 设置</strong></li>
-                  <li>找到 <strong>API Configuration</strong> 选择 <strong>OpenAI Compatible</strong></li>
-                  <li>Base URL 填入: <code className="bg-white dark:bg-gray-900 px-2 py-1 rounded border border-gray-200 dark:border-gray-700 select-all text-blue-600 dark:text-blue-400">https://kfc-api.sxxe.net/v1</code></li>
-                  <li>API Key 填入: <a href="https://kfc-api.sxxe.net/console/token" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">获取的令牌</a></li>
-                  <li>勾选 "使用OpenAI传统格式"</li>
-                </ol>
-              </div>
-
-              <div className="mt-3 text-right">
-                <a href="https://kilo.ai/docs/zh-CN/" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 hover:text-blue-600 hover:underline inline-flex items-center transition-colors">
-                  查阅官方文档 <i className="fas fa-arrow-right ml-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        );
-
       case 'claude':
         return (
           <div className="space-y-4">
             <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 p-4 rounded-xl border border-purple-100 dark:border-purple-800 mb-4">
               <h4 className="font-bold text-purple-800 dark:text-purple-300 mb-2 flex items-center">
-                <i className="fas fa-magic mr-2"></i> 推荐方案：CC Switch
+                <i className="fas fa-magic mr-2"></i> Claude Code 配置
               </h4>
               <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
-                告别繁琐的配置文件修改！使用 <strong>CC Switch</strong> 一键管理 Claude Code 配置。
+                配置 Claude Code CLI 工具，享受 AI 编程助手的强大功能。
               </p>
-              <ul className="list-disc list-inside text-xs text-gray-600 dark:text-gray-400 space-y-1 mb-3">
-                <li>🚀 <strong>一键切换</strong>：在官方 API 和公益站之间秒级切换</li>
-                <li>🛡️ <strong>安全管理</strong>：无需手动触碰敏感的配置文件</li>
-                <li>⚡ <strong>测速功能</strong>：实时检测 API 连通性和延迟</li>
-              </ul>
-              <a href="https://github.com/farion1231/cc-switch" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-lg transition-colors">
-                <i className="fab fa-github mr-2"></i> 下载 CC Switch
-              </a>
-            </div>
-
-            <div className="border-t border-gray-100 dark:border-gray-700 pt-4">
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">或者手动配置 (不推荐)：</p>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">编辑 <code>~/.claude/settings.json</code>：</p>
-              <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto">
-                <code>{`{
+              <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-purple-100 dark:border-purple-700/50">
+                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center">
+                  <i className="fas fa-sliders-h mr-2 text-purple-500"></i> 配置步骤
+                </h5>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">编辑 <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">~/.claude/settings.json</code>：</p>
+                <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto">
+                  <code>{`{
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "your-key",
-    "ANTHROPIC_BASE_URL": "https://kfc-api.sxxe.net"
+    "ANTHROPIC_AUTH_TOKEN": "your-api-key",
+    "ANTHROPIC_BASE_URL": "https://your-api-domain.com"
   }
 }`}</code>
-              </pre>
+                </pre>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                  将 <code>your-api-key</code> 替换为你的 API 密钥，<code>your-api-domain.com</code> 替换为实际的 API 地址。
+                </p>
+              </div>
             </div>
           </div>
         );
 
-      case 'cherry':
+      case 'openai':
         return (
           <div className="space-y-4">
-            <div className="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-xl border border-pink-100 dark:border-pink-800">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h4 className="font-bold text-pink-800 dark:text-pink-300 text-lg">Cherry Studio</h4>
-                  <p className="text-xs text-pink-600 dark:text-pink-400 mt-1">专业的 AI 桌面客户端</p>
-                </div>
-                <a href="https://www.cherry-ai.com/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold rounded-lg transition-colors flex items-center shadow-sm">
-                  <i className="fas fa-download mr-2"></i> 官网下载
-                </a>
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800">
+              <h4 className="font-bold text-blue-800 dark:text-blue-300 text-lg mb-2">OpenAI SDK 接入</h4>
+              <p className="text-sm text-blue-600 dark:text-blue-400 mb-4">使用 OpenAI 官方 SDK，兼容所有 Claude 模型</p>
+
+              <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-blue-100 dark:border-blue-700/50 mb-3">
+                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3">Python 示例</h5>
+                <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto">
+                  <code>{`from openai import OpenAI
+
+client = OpenAI(
+    api_key="your-api-key",
+    base_url="https://your-api-domain.com/v1"
+)
+
+response = client.chat.completions.create(
+    model="claude-sonnet-4-5",
+    messages=[
+        {"role": "user", "content": "你好！"}
+    ]
+)
+
+print(response.choices[0].message.content)`}</code>
+                </pre>
               </div>
 
-              <div className="mb-4 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                <p>Cherry Studio 是一款强大的桌面版 AI 客户端，支持多模型管理与对话。界面简洁美观，功能丰富，是管理和使用 AI 模型的理想工具。</p>
+              <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-blue-100 dark:border-blue-700/50">
+                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3">Node.js 示例</h5>
+                <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto">
+                  <code>{`import OpenAI from 'openai';
+
+const client = new OpenAI({
+  apiKey: 'your-api-key',
+  baseURL: 'https://your-api-domain.com/v1'
+});
+
+const response = await client.chat.completions.create({
+  model: 'claude-sonnet-4-5',
+  messages: [{ role: 'user', content: '你好！' }]
+});
+
+console.log(response.choices[0].message.content);`}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'api':
+        return (
+          <div className="space-y-4">
+            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl border border-green-100 dark:border-green-800">
+              <h4 className="font-bold text-green-800 dark:text-green-300 text-lg mb-2">API 调用示例</h4>
+              <p className="text-sm text-green-600 dark:text-green-400 mb-4">直接使用 HTTP 请求调用 API</p>
+
+              <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-green-100 dark:border-green-700/50 mb-3">
+                <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3">cURL 示例</h5>
+                <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto">
+                  <code>{`curl https://your-api-domain.com/v1/chat/completions \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer your-api-key" \\
+  -d '{
+    "model": "claude-sonnet-4-5",
+    "messages": [
+      {"role": "user", "content": "你好！"}
+    ]
+  }'`}</code>
+                </pre>
               </div>
 
-              <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-pink-100 dark:border-pink-700/50">
+              <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-green-100 dark:border-green-700/50">
                 <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center">
-                  <i className="fas fa-sliders-h mr-2 text-pink-500"></i> 配置指南
+                  <i className="fas fa-lightbulb mr-2 text-green-500"></i> 支持的特性
                 </h5>
-                <ol className="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 space-y-2">
-                  <li>下载并安装 Cherry Studio</li>
-                  <li>进入 <strong>设置</strong> → <strong>模型服务</strong></li>
-                  <li>添加 <strong>OpenAI</strong> 类型服务</li>
-                  <li>API 地址填入: <code className="bg-white dark:bg-gray-900 px-2 py-1 rounded border border-gray-200 dark:border-gray-700 select-all text-pink-600 dark:text-pink-400">https://kfc-api.sxxe.net</code></li>
-                  <li>API 密钥填入: <span className="text-gray-500">您的 API Key</span></li>
-                </ol>
-              </div>
-
-              <div className="mt-3 text-right">
-                <a href="https://docs.cherry-ai.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-pink-500 hover:text-pink-600 hover:underline inline-flex items-center transition-colors">
-                  查阅官方文档 <i className="fas fa-arrow-right ml-1"></i>
-                </a>
+                <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                  <li>✅ 1M tokens 超长上下文</li>
+                  <li>✅ Extended Thinking 思考模式</li>
+                  <li>✅ 流式输出 (stream: true)</li>
+                  <li>✅ 完全兼容 OpenAI API 格式</li>
+                </ul>
               </div>
             </div>
           </div>
