@@ -47,12 +47,12 @@ const GuideModal = () => {
                   <code>{`{
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "your-api-key",
-    "ANTHROPIC_BASE_URL": "https://your-api-domain.com"
+    "ANTHROPIC_BASE_URL": "https://code.giot.edu.kg"
   }
 }`}</code>
                 </pre>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                  将 <code>your-api-key</code> 替换为你的 API 密钥，<code>your-api-domain.com</code> 替换为实际的 API 地址。
+                  将 <code>your-api-key</code> 替换为你的 API 密钥。
                 </p>
               </div>
             </div>
@@ -73,7 +73,7 @@ const GuideModal = () => {
 
 client = OpenAI(
     api_key="your-api-key",
-    base_url="https://your-api-domain.com/v1"
+    base_url="https://code.giot.edu.kg/v1"
 )
 
 response = client.chat.completions.create(
@@ -94,7 +94,7 @@ print(response.choices[0].message.content)`}</code>
 
 const client = new OpenAI({
   apiKey: 'your-api-key',
-  baseURL: 'https://your-api-domain.com/v1'
+  baseURL: 'https://code.giot.edu.kg/v1'
 });
 
 const response = await client.chat.completions.create({
@@ -119,7 +119,7 @@ console.log(response.choices[0].message.content);`}</code>
               <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-green-100 dark:border-green-700/50 mb-3">
                 <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-3">cURL 示例</h5>
                 <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto">
-                  <code>{`curl https://your-api-domain.com/v1/chat/completions \\
+                  <code>{`curl https://code.giot.edu.kg/v1/chat/completions \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer your-api-key" \\
   -d '{

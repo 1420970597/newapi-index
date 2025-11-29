@@ -40,7 +40,7 @@ const QuickGuideCard = () => {
           <p className="text-xs text-gray-400 dark:text-gray-500">接口调用示例</p>
         </button>
         <button
-          onClick={() => window.open('https://your-console-url.com', '_blank')}
+          onClick={() => window.open('https://code.giot.edu.kg', '_blank')}
           className="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 border border-gray-100 dark:border-gray-600 hover:border-indigo-200 dark:hover:border-indigo-700 transition-all text-left group"
         >
           <div className="flex items-center mb-1">

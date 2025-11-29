@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  url: 'https://your-api-url.com/v1/models', // 请替换为实际的API地址
+  url: 'https://code.giot.edu.kg/v1/models',
   keys: ['your-api-key'] // 请替换为实际的API密钥
 };
 

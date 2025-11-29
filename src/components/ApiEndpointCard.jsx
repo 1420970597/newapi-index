@@ -14,9 +14,9 @@ const ApiEndpointCard = () => {
 
       <div
         className="bg-indigo-800/50 rounded-xl p-4 flex items-center justify-between backdrop-blur-sm border border-indigo-500/30 group-hover:bg-indigo-800/70 transition-colors cursor-pointer"
-        onClick={() => copyToClipboard('https://your-api-domain.com')}
+        onClick={() => copyToClipboard('https://code.giot.edu.kg')}
       >
-        <code className="font-mono text-sm truncate mr-2">https://your-api-domain.com</code>
+        <code className="font-mono text-sm truncate mr-2">https://code.giot.edu.kg</code>
         <i className="fas fa-copy opacity-70 hover:opacity-100 transition-opacity"></i>
       </div>
     </div>

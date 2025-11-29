@@ -55,9 +55,10 @@ export const AppProvider = ({ children }) => {
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast('已复制到剪贴板');
+      showToast('已复制到剪贴板', 'fa-check-circle');
     } catch (err) {
       console.error('Failed to copy:', err);
+      showToast('复制失败，请手动复制', 'fa-exclamation-circle');
     }
   };
 
