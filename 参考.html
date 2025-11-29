@@ -1,0 +1,731 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KFC API 公益站 · Bento Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                },
+                extend: {
+                    colors: {
+                        bento: {
+                            bg: '#f3f4f6',
+                            card: '#ffffff',
+                            darkBg: '#111827',
+                            darkCard: '#1f2937',
+                            accent: '#3b82f6',
+                        }
+                    },
+                    boxShadow: {
+                        'bento': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+                        'bento-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .dark body {
+            background-color: #0f172a;
+            color: #f3f4f6;
+        }
+        .bento-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Custom Scrollbar for content */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen p-4 md:p-8 pt-[100px] md:pt-[100px] transition-colors duration-300">
+
+    <!-- Main Grid Container -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+
+        <!-- 1. Header / Hero Block (Large, Top Left) -->
+        <div class="col-span-1 md:col-span-4 lg:col-span-4 row-span-2 bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-bento flex flex-col justify-between relative overflow-hidden group bento-card">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 dark:bg-blue-900/20 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-800/30"></div>
+            
+            <div class="relative z-10">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wide uppercase">
+                        公益 · 免费 · 高速
+                    </div>
+                    <button onclick="toggleTheme()" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+                    KFC API <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">公益站</span>
+                </h1>
+                <p class="text-lg text-gray-500 dark:text-gray-400 max-w-xl mb-8 leading-relaxed">
+                    <span class="font-semibold text-blue-600 dark:text-blue-400">K</span>indness (善意) · <span class="font-semibold text-blue-600 dark:text-blue-400">F</span>riendly (友好) · <span class="font-semibold text-blue-600 dark:text-blue-400">C</span>ommunity (社区)<br>
+                    <span class="text-sm italic opacity-80">"A friendly community full of kindness."</span><br>
+                    一个充满善意与友好的社区服务站，聚合全球领先 AI 模型，为开发者和研究者提供免费、稳定的 API 接入服务。
+                </p>
+                
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="document.getElementById('quick-start').scrollIntoView()" class="px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-semibold hover:opacity-90 transition-opacity flex items-center">
+                        <i class="fas fa-rocket mr-2"></i> 开始使用
+                    </button>
+                    <button onclick="window.open('https://kfc-api.sxxe.net/console/token', '_blank')" class="px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center">
+                        <i class="fas fa-key mr-2"></i> 获取 Key
+                    </button>
+                    <button onclick="document.getElementById('faq-section').scrollIntoView()" class="px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center">
+                        <i class="fas fa-question-circle mr-2"></i> 常见问题
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Stats Block (Small, Top Right) -->
+        <div class="col-span-1 md:col-span-2 lg:col-span-2 bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-bento flex flex-col justify-center items-center text-center bento-card relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent dark:from-green-900/10 dark:to-transparent opacity-50"></div>
+            <div class="relative z-10">
+                <div class="text-5xl font-bold text-gray-900 dark:text-white mb-2" id="model-count">--</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">支持模型数量</div>
+                <div class="mt-4 inline-flex items-center text-xs text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded-lg">
+                    <i class="fas fa-check-circle mr-1"></i> 实时更新
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Status/Info Block (Small, Middle Right) -->
+        <div class="col-span-1 md:col-span-2 lg:col-span-2 bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-bento flex flex-col justify-between bento-card">
+            <div>
+                <div class="flex items-center mb-3">
+                    <div class="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400 mr-3">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 dark:text-white">系统状态</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-gray-500 dark:text-gray-400">API 速率</span>
+                        <span class="font-mono font-semibold text-gray-900 dark:text-white">12 RPM</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-gray-500 dark:text-gray-400">服务可用性</span>
+                        <span class="font-mono font-semibold text-green-500">99.9%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                <p class="text-xs text-gray-400 dark:text-gray-500">请勿滥用资源，禁止二次分发</p>
+            </div>
+        </div>
+
+        <!-- 4. Quick Copy Block (Medium, Middle Left) -->
+        <div id="quick-start" class="col-span-1 md:col-span-2 lg:col-span-3 bg-indigo-600 dark:bg-indigo-700 rounded-3xl p-6 shadow-bento text-white flex flex-col justify-between bento-card group">
+            <div>
+                <h3 class="text-xl font-bold mb-2 flex items-center">
+                    <i class="fas fa-link mr-2 opacity-70"></i> API Endpoint
+                </h3>
+                <p class="text-indigo-100 text-sm mb-6">兼容 OpenAI 格式，直接替换 Base URL 即可使用。</p>
+            </div>
+            
+            <div class="bg-indigo-800/50 rounded-xl p-4 flex items-center justify-between backdrop-blur-sm border border-indigo-500/30 group-hover:bg-indigo-800/70 transition-colors cursor-pointer" onclick="copyToClipboard('https://kfc-api.sxxe.net')">
+                <code class="font-mono text-sm truncate mr-2">https://kfc-api.sxxe.net</code>
+                <i class="fas fa-copy opacity-70 hover:opacity-100 transition-opacity"></i>
+            </div>
+        </div>
+
+        <!-- 5. Documentation Links (Medium, Middle Center) -->
+        <div class="col-span-1 md:col-span-2 lg:col-span-3 bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-bento bento-card">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                <i class="fas fa-book-open text-blue-500 mr-2"></i> 快速接入指南
+            </h3>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="showGuideModal('kilocode')" class="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-gray-100 dark:border-gray-600 hover:border-blue-200 dark:hover:border-blue-700 transition-all text-left group">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-code text-gray-400 group-hover:text-blue-500 mr-2 transition-colors"></i>
+                        <span class="font-semibold text-gray-700 dark:text-gray-200 text-sm">Kilocode</span>
+                    </div>
+                    <p class="text-xs text-gray-400 dark:text-gray-500">IDE 插件配置</p>
+                </button>
+                <button onclick="showGuideModal('claude')" class="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 border border-gray-100 dark:border-gray-600 hover:border-purple-200 dark:hover:border-purple-700 transition-all text-left group">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-brain text-gray-400 group-hover:text-purple-500 mr-2 transition-colors"></i>
+                        <span class="font-semibold text-gray-700 dark:text-gray-200 text-sm">Claude</span>
+                    </div>
+                    <p class="text-xs text-gray-400 dark:text-gray-500">命令行工具</p>
+                </button>
+                <button onclick="showGuideModal('cherry')" class="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-pink-50 dark:hover:bg-pink-900/20 border border-gray-100 dark:border-gray-600 hover:border-pink-200 dark:hover:border-pink-700 transition-all text-left group">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-desktop text-gray-400 group-hover:text-pink-500 mr-2 transition-colors"></i>
+                        <span class="font-semibold text-gray-700 dark:text-gray-200 text-sm">Cherry</span>
+                    </div>
+                    <p class="text-xs text-gray-400 dark:text-gray-500">桌面客户端</p>
+                </button>
+                <button onclick="window.open('https://kfc-api.sxxe.net/console', '_blank')" class="p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-green-50 dark:hover:bg-green-900/20 border border-gray-100 dark:border-gray-600 hover:border-green-200 dark:hover:border-green-700 transition-all text-left group">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-external-link-alt text-gray-400 group-hover:text-green-500 mr-2 transition-colors"></i>
+                        <span class="font-semibold text-gray-700 dark:text-gray-200 text-sm">Console</span>
+                    </div>
+                    <p class="text-xs text-gray-400 dark:text-gray-500">控制台</p>
+                </button>
+            </div>
+        </div>
+
+        <!-- 6. Model List (Full Width) -->
+        <div class="col-span-1 md:col-span-4 lg:col-span-6 bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-bento bento-card min-h-[400px]">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
+                    <i class="fas fa-cubes text-blue-500 mr-3"></i> 模型列表
+                </h2>
+                
+                <!-- Filter Tabs -->
+                <div class="flex overflow-x-auto pb-2 md:pb-0 w-full md:w-auto gap-2 scrollbar-hide" id="category-filters">
+                    <button onclick="filterByCategory('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-200 dark:hover:bg-gray-600" data-category="all">全部</button>
+                    <button onclick="filterByCategory('gpt')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="gpt">GPT</button>
+                    <button onclick="filterByCategory('claude')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="claude">Claude</button>
+                    <button onclick="filterByCategory('gemini')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="gemini">Gemini</button>
+                    <button onclick="filterByCategory('deepseek')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="deepseek">DeepSeek</button>
+                    <button onclick="filterByCategory('glm')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="glm">GLM</button>
+                    <button onclick="filterByCategory('qwen')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="qwen">Qwen</button>
+                    <button onclick="filterByCategory('grok')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="grok">Grok</button>
+                    <button onclick="filterByCategory('kimi')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="kimi">Kimi</button>
+                    <button onclick="filterByCategory('other')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700" data-category="other">其他</button>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="models-loading" class="flex flex-col items-center justify-center py-20">
+                <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-500 dark:text-gray-400">正在加载模型数据...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="models-error" class="hidden flex flex-col items-center justify-center py-20">
+                <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+                <p class="text-gray-500 dark:text-gray-400 mb-4">加载失败</p>
+                <button onclick="loadModels()" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">重试</button>
+            </div>
+
+            <!-- Grid -->
+            <div id="models-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 hidden">
+                <!-- Models injected here -->
+            </div>
+        </div>
+
+        <!-- 7. FAQ Block (Bottom) -->
+        <div id="faq-section" class="col-span-1 md:col-span-4 lg:col-span-6 bg-gray-100 dark:bg-gray-800/50 rounded-3xl p-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">常见问题</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-transparent hover:border-blue-100 dark:hover:border-blue-900 transition-colors">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <i class="fas fa-gift text-blue-500 mr-2"></i> 是否完全免费？
+                    </h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        <span class="font-semibold text-green-600 dark:text-green-400">是，永久免费。</span>
+                        采用公平限流策略以保障服务稳定。致力于让每个人都能体验前沿的人工智能技术。
+                    </p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-transparent hover:border-purple-100 dark:hover:border-purple-900 transition-colors">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <i class="fas fa-hands-helping text-purple-500 mr-2"></i> 如何参与贡献？
+                    </h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        可以在投喂站进行投喂，欢迎开源用户共同参与项目建设。
+                    </p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-transparent hover:border-green-100 dark:hover:border-green-900 transition-colors">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <i class="fas fa-user-plus text-green-500 mr-2"></i> 什么时候开放注册？
+                    </h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        <span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-0.5 rounded text-xs font-bold">每周四</span>
+                        会定时开放注册，或关注公告获取其他开放时间。
+                    </p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-transparent hover:border-red-100 dark:hover:border-red-900 transition-colors">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-2"></i> 报错 No active API keys...？
+                    </h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        通常是因为 GPT-Load 的 Key Pool 暂时失效。请尝试更换模型，或等待一段时间后重试。
+                    </p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-transparent hover:border-yellow-100 dark:hover:border-yellow-900 transition-colors">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <i class="fas fa-ban text-yellow-500 mr-2"></i> 是否可以 NSFW？
+                    </h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        <span class="font-bold text-red-500">不可以。</span>
+                        严禁生成色情、暴力等违规内容，违者封号。哒咩呦！
+                    </p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-transparent hover:border-indigo-100 dark:hover:border-indigo-900 transition-colors">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <i class="fas fa-tachometer-alt text-indigo-500 mr-2"></i> 可以开启高并发吗？
+                    </h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        默认限制 12 RPM。如有特殊场景需求，请联系管理员申请。
+                    </p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-transparent hover:border-orange-100 dark:hover:border-orange-900 transition-colors md:col-span-2">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <i class="fas fa-share-alt text-orange-500 mr-2"></i> 可以将 Key 分享给朋友吗？
+                    </h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        <span class="font-bold text-red-500">不可以。</span>
+                        二次分发会导致滥用，影响其他用户的正常使用。请让朋友自行注册获取 Key。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto mt-8 text-center text-gray-400 dark:text-gray-600 text-sm pb-8">
+        <p>&copy; 2025 KFC API 公益站. Designed for Developers.</p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-3 rounded-full shadow-xl flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-10 pointer-events-none z-50">
+        <i class="fas fa-check-circle text-green-500"></i>
+        <span class="font-medium">已复制到剪贴板</span>
+    </div>
+
+    <!-- Guide Modal (Simplified for Bento) -->
+    <div id="guide-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl w-full max-w-2xl max-h-[80vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300" id="guide-modal-content">
+            <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center sticky top-0 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md z-10">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white" id="modal-title">接入指南</h3>
+                <button onclick="closeGuideModal()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6" id="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Disclaimer Modal -->
+    <div id="disclaimer-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-gray-200 dark:border-gray-700">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">免责声明</h2>
+            </div>
+            <div class="space-y-4 text-sm text-gray-600 dark:text-gray-300 max-h-60 overflow-y-auto custom-scrollbar p-2 bg-gray-50 dark:bg-gray-800 rounded-xl mb-6">
+                <p><strong>1. 站点性质与非官方声明：</strong> 本项目系个人自费运营的公益资助项目，旨在为开发者和学术研究者提供无偿的模型调用额度。本站独立运营，与 OpenAI、Google (Alphabet)、Anthropic、Grok Meta、DeepSeek、Kimi、 智谱AI、 阿里千问、 等任何主流 AI 厂商及第三方服务商无任何官方关联、商业合作或担保关系。本站所提供的服务不构成任何形式的合同、雇佣、合伙或委托关系。</p>
+                <p><strong>2. 免费声明与防骗提醒：</strong> 本站坚持纯公益原则，没有任何充值接口，暂无任何收费计划。请勿轻信任何声称代表本站的收费、代充或所谓“VIP通道”的信息。谨防上当受骗。</p>
+                <p><strong>3. 合规使用与行为准则：</strong> 根据《生成式人工智能服务管理暂行办法》规定（自 2023 年 08 月 15 日起施行），用户在使用本站服务时必须严格遵守以下规定：合法用途：申请与使用须仅用于开源开发、公益项目、学术研究等正当目的。严禁用于违反中国法律法规、出口管制政策及相关平台服务条款的行为。内容规范：严禁生成违法、侵权、暴力、色情、政治敏感或侵犯他人隐私的内容。特别提示：使用 Claude 系列模型时，请务必注意内容合规，尽量避免涉及 NSFW（Not Safe For Work）内容，以免引发风控。禁止滥用：严禁进行恶意请求、DDoS 攻击、高频并发刷接口或其他任何可能导致服务器负载过高或损坏的行为。</p>
+                <p><strong>4. 账户管理与违规处理机制：</strong> 沟通优先：若发现账户存在滥用或异常行为，本站承诺会优先尝试与用户联系咨询情况。保障权益：本站保证不会在未通知且未进行商讨的情况下直接封禁账号或扣除额度（极端恶意攻击除外）。数据与责任：使用者需对其输入、上传的数据及产生的内容自行承担全部法律责任。请勿在 Prompt 中提交受法律保护的个人隐私或商业机密。</p>
+                <p><strong>5. 服务变更与不可抗力：</strong> 服务调整：本站保留在不另行通知的情况下，对 API 接口进行调整、升级、维护或暂停服务的权利。免责条款：本站服务按“现状”提供，不作任何明示或默示的担保。在法律允许的最大范围内，运营方对因使用或无法使用本站服务所导致的直接或间接损失不承担责任。</p>
+                <p><strong>6. 知识产权与协议效力：</strong> 产出归属：使用者应确保对提交素材拥有相应权利；产出的成果建议以开源许可证（如 MIT/Apache-2.0）发布。管辖法律：本声明受中华人民共和国法律管辖。同意条款：您注册或实际使用本站服务，即表示您已阅读并完全同意本声明及其后续更新。</p>
+            </div>
+            <button id="agree-btn" onclick="acceptAgreement()" disabled class="w-full py-3 bg-gray-300 dark:bg-gray-700 text-gray-500 rounded-xl font-bold cursor-not-allowed transition-all">
+                请阅读条款 (<span id="countdown">5</span>s)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Theme Logic ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // Init Theme
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+
+        // --- Data & API ---
+        // 使用 Cloudflare Worker 代理解决 CORS 问题
+        const API_CONFIG = {
+            url: 'https://quiet-darkness-94e7.kyxjames23.workers.dev/v1/models',
+            keys: [
+                'sk-7IyfmJMIoN14FkZ0jQMj49zzHUPx70gahWuOX789hwQA2ZqE',
+                'sk-OrV3NW0dmTln3IcWegJEkSqcsPl5qipVnUWbKv4fpEiUHSoc'
+            ]
+        };
+        let allModels = [];
+
+        // 预设模型列表（作为后备数据）
+        const FALLBACK_MODELS = [
+            "gpt-4.1-mini", "gpt-4.1-nano", "gpt-4o", "gpt-4o-mini", "gpt-oss-120b", "gpt-oss-20b",
+            "claude-3-5-sonnet", "claude-3-haiku",
+            "cursor2-claude-4-sonnet", "cursor2-claude-4.1-opus", "cursor2-claude-4.5-sonnet",
+            "cursor2-gpt-5", "cursor2-gpt-5-codex", "cursor2-gpt-5-mini",
+            "cursor2-grok-3", "cursor2-grok-3-mini", "cursor2-grok-4",
+            "DeepSeek-V3.1", "DeepSeek-V3.1-Terminus", "DeepSeek-V3.2-Exp",
+            "gemini-2.0-flash", "gemini-2.0-flash-lite-preview", "gemini-2.5-flash", "gemini-2.5-flash-lite",
+            "gemini-2.5-flash-lite-preview-09-2025", "gemini-2.5-pro", "gemini-2.5-pro-preview-03-25",
+            "gemini-2.5-pro-preview-03-25-search", "gemini-2.5-pro-preview-05-06", "gemini-2.5-pro-preview-05-06-search",
+            "gemini-2.5-pro-preview-06-05", "gemini-2.5-pro-preview-06-05-search", "gemini-3-pro-preview",
+            "GLM-4.5", "GLM-4.5-Air", "GLM-4.5V", "GLM-4.6",
+            "grok-4.1-fast",
+            "Kimi-K2-Instruct-0905",
+            "MiniMax-M2",
+            "Qwen/Qwen3-8B", "Qwen3-235B-A22B-Instruct-2507", "Qwen3-235B-A22B-Thinking-2507",
+            "Qwen3-Coder-Plus", "Qwen3-Max", "Qwen3-Next-80B-A3B-Instruct", "Qwen3-Next-80B-A3B-Thinking",
+            "Qwen3-VL-235B-A22B-Instruct", "Qwen3-VL-235B-A22B-Thinking", "Qwen3-VL-30B-A3B-Instruct", "Qwen3-VL-30B-A3B-Thinking",
+            "tencent/Hunyuan-MT-7B",
+            "THUDM/glm-4-9b-chat"
+        ];
+
+        async function loadModels() {
+            const loading = document.getElementById('models-loading');
+            const error = document.getElementById('models-error');
+            const grid = document.getElementById('models-grid');
+            const countEl = document.getElementById('model-count');
+
+            try {
+                // 并行请求两个密钥的模型列表
+                const fetchPromises = API_CONFIG.keys.map(key =>
+                    fetch(API_CONFIG.url, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${key}`,
+                            'Content-Type': 'application/json'
+                        },
+                        mode: 'cors',
+                        credentials: 'omit'
+                    }).then(res => {
+                        if (!res.ok) throw new Error(`Network error: ${res.status}`);
+                        return res.json();
+                    }).then(data => {
+                        return (data.data || data).map(m => m.id || m);
+                    }).catch(e => {
+                        console.warn('Single API fetch failed:', e);
+                        return []; // 单个请求失败返回空数组
+                    })
+                );
+
+                const results = await Promise.all(fetchPromises);
+
+                // 合并所有结果并去重
+                const combinedModels = results.flat();
+                allModels = [...new Set(combinedModels)];
+
+                // 如果两个请求都失败了，使用后备数据
+                if (allModels.length === 0) {
+                    throw new Error('All API requests failed');
+                }
+
+            } catch (e) {
+                console.warn('API fetch failed, using fallback data:', e);
+                // 如果 API 失败，使用后备数据
+                allModels = FALLBACK_MODELS;
+
+                // 显示一个小的提示（可选）
+                const toast = document.getElementById('toast');
+                const toastIcon = toast.querySelector('i');
+                const toastText = toast.querySelector('span');
+
+                // 临时修改 toast 显示警告
+                const originalIconClass = toastIcon.className;
+                const originalText = toastText.textContent;
+
+                toastIcon.className = 'fas fa-exclamation-circle text-yellow-500';
+                toastText.textContent = '无法连接服务器，显示预设模型';
+                toast.classList.remove('opacity-0', 'translate-y-10');
+
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-10');
+                    // 恢复 toast 原始状态
+                    setTimeout(() => {
+                        toastIcon.className = originalIconClass;
+                        toastText.textContent = originalText;
+                    }, 300);
+                }, 3000);
+            } finally {
+                // 无论成功还是失败（使用了后备数据），都渲染列表
+                countEl.textContent = allModels.length;
+                renderModels(allModels);
+                loading.classList.add('hidden');
+                grid.classList.remove('hidden');
+                // 隐藏错误提示（因为我们有了后备数据）
+                error.classList.add('hidden');
+            }
+        }
+
+        function renderModels(models) {
+            const grid = document.getElementById('models-grid');
+            grid.innerHTML = '';
+            models.forEach(model => {
+                const div = document.createElement('div');
+                div.className = 'bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 text-gray-600 dark:text-gray-300 text-xs font-medium px-3 py-2 rounded-lg text-center cursor-pointer transition-colors truncate';
+                div.textContent = model;
+                div.title = model;
+                div.onclick = () => copyToClipboard(model);
+                grid.appendChild(div);
+            });
+        }
+
+        function categorizeModel(modelName) {
+            const name = modelName.toLowerCase();
+            if (name.startsWith('gpt') || name.includes('/gpt')) return 'gpt';
+            if (name.startsWith('claude') || name.includes('/claude')) return 'claude';
+            if (name.startsWith('gemini') || name.includes('/gemini')) return 'gemini';
+            if (name.startsWith('glm') || name.includes('/glm')) return 'glm';
+            if (name.startsWith('qwen') || name.includes('/qwen')) return 'qwen';
+            if (name.startsWith('deepseek') || name.includes('/deepseek')) return 'deepseek';
+            if (name.startsWith('grok') || name.includes('/grok') || name.includes('grok-')) return 'grok';
+            if (name.startsWith('kimi') || name.includes('/kimi') || name.includes('moonshot')) return 'kimi';
+            return 'other';
+        }
+
+        function filterByCategory(category) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.dataset.category === category) {
+                    btn.classList.add('bg-gray-900', 'text-white', 'dark:bg-white', 'dark:text-gray-900');
+                    btn.classList.remove('bg-white', 'text-gray-600', 'dark:bg-gray-800', 'dark:text-gray-300');
+                } else {
+                    btn.classList.remove('bg-gray-900', 'text-white', 'dark:bg-white', 'dark:text-gray-900');
+                    btn.classList.add('bg-white', 'text-gray-600', 'dark:bg-gray-800', 'dark:text-gray-300');
+                }
+            });
+
+            if (category === 'all') {
+                renderModels(allModels);
+            } else {
+                const filtered = allModels.filter(m => categorizeModel(m) === category);
+                renderModels(filtered);
+            }
+        }
+
+        // --- UI Interactions ---
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('opacity-0', 'translate-y-10');
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-10');
+                }, 2000);
+            });
+        }
+
+        // --- Modal Logic ---
+        const guideContent = {
+            kilocode: `
+                <div class="space-y-4">
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="font-bold text-blue-800 dark:text-blue-300 text-lg">Kilocode 配置</h4>
+                                <p class="text-xs text-blue-600 dark:text-blue-400 mt-1">强大的 AI 编程助手</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-blue-100 dark:border-blue-700/50">
+                            <h5 class="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center">
+                                <i class="fas fa-sliders-h mr-2 text-blue-500"></i> 配置步骤
+                            </h5>
+                            <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                                <li>打开 <strong>Kilocode 设置</strong></li>
+                                <li>找到 <strong>API Configuration</strong> 选择 <strong>OpenAI Compatible</strong></li>
+                                <li>Base URL 填入: <code class="bg-white dark:bg-gray-900 px-2 py-1 rounded border border-gray-200 dark:border-gray-700 select-all text-blue-600 dark:text-blue-400">https://kfc-api.sxxe.net/v1</code></li>
+                                <li>API Key 填入: <a href="https://kfc-api.sxxe.net/console/token" target="_blank" class="text-blue-500 hover:underline">获取的令牌</a></li>
+                                <li>勾选 "使用OpenAI传统格式"</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-3 text-right">
+                             <a href="https://kilo.ai/docs/zh-CN/" target="_blank" class="text-xs text-blue-500 hover:text-blue-600 hover:underline inline-flex items-center transition-colors">
+                                查阅官方文档 <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `,
+            claude: `
+                <div class="space-y-4">
+                    <div class="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 p-4 rounded-xl border border-purple-100 dark:border-purple-800 mb-4">
+                        <h4 class="font-bold text-purple-800 dark:text-purple-300 mb-2 flex items-center">
+                            <i class="fas fa-magic mr-2"></i> 推荐方案：CC Switch
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">
+                            告别繁琐的配置文件修改！使用 <strong>CC Switch</strong> 一键管理 Claude Code 配置。
+                        </p>
+                        <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-400 space-y-1 mb-3">
+                            <li>🚀 <strong>一键切换</strong>：在官方 API 和公益站之间秒级切换</li>
+                            <li>🛡️ <strong>安全管理</strong>：无需手动触碰敏感的配置文件</li>
+                            <li>⚡ <strong>测速功能</strong>：实时检测 API 连通性和延迟</li>
+                        </ul>
+                        <a href="https://github.com/farion1231/cc-switch" target="_blank" class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-lg transition-colors">
+                            <i class="fab fa-github mr-2"></i> 下载 CC Switch
+                        </a>
+                    </div>
+
+                    <div class="border-t border-gray-100 dark:border-gray-700 pt-4">
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">或者手动配置 (不推荐)：</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">编辑 <code>~/.claude/settings.json</code>：</p>
+                        <pre class="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto"><code>{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your-key",
+    "ANTHROPIC_BASE_URL": "https://kfc-api.sxxe.net"
+  }
+}</code></pre>
+                    </div>
+                </div>
+            `,
+            cherry: `
+                <div class="space-y-4">
+                    <div class="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-xl border border-pink-100 dark:border-pink-800">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="font-bold text-pink-800 dark:text-pink-300 text-lg">Cherry Studio</h4>
+                                <p class="text-xs text-pink-600 dark:text-pink-400 mt-1">专业的 AI 桌面客户端</p>
+                            </div>
+                            <a href="https://www.cherry-ai.com/" target="_blank" class="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold rounded-lg transition-colors flex items-center shadow-sm">
+                                <i class="fas fa-download mr-2"></i> 官网下载
+                            </a>
+                        </div>
+                        
+                        <div class="mb-4 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                            <p>Cherry Studio 是一款强大的桌面版 AI 客户端，支持多模型管理与对话。界面简洁美观，功能丰富，是管理和使用 AI 模型的理想工具。</p>
+                        </div>
+
+                        <div class="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 border border-pink-100 dark:border-pink-700/50">
+                            <h5 class="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center">
+                                <i class="fas fa-sliders-h mr-2 text-pink-500"></i> 配置指南
+                            </h5>
+                            <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                                <li>下载并安装 Cherry Studio</li>
+                                <li>进入 <strong>设置</strong> -> <strong>模型服务</strong></li>
+                                <li>添加 <strong>OpenAI</strong> 类型服务</li>
+                                <li>API 地址填入: <code class="bg-white dark:bg-gray-900 px-2 py-1 rounded border border-gray-200 dark:border-gray-700 select-all text-pink-600 dark:text-pink-400">https://kfc-api.sxxe.net</code></li>
+                                <li>API 密钥填入: <span class="text-gray-500">您的 API Key</span></li>
+                            </ol>
+                        </div>
+                        
+                        <div class="mt-3 text-right">
+                             <a href="https://docs.cherry-ai.com/" target="_blank" class="text-xs text-pink-500 hover:text-pink-600 hover:underline inline-flex items-center transition-colors">
+                                查阅官方文档 <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        function showGuideModal(type) {
+            const modal = document.getElementById('guide-modal');
+            const content = document.getElementById('guide-modal-content');
+            const body = document.getElementById('modal-body');
+            const title = document.getElementById('modal-title');
+            
+            title.textContent = type === 'kilocode' ? 'Kilocode 配置' : type === 'claude' ? 'Claude Code 配置' : 'Cherry Studio 配置';
+            body.innerHTML = guideContent[type];
+            
+            modal.classList.remove('hidden');
+            // Small delay for animation
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeGuideModal() {
+            const modal = document.getElementById('guide-modal');
+            const content = document.getElementById('guide-modal-content');
+            
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // --- Disclaimer Logic ---
+        function initDisclaimer() {
+            const agreed = localStorage.getItem('agreed_v2');
+            if (agreed) return;
+
+            const modal = document.getElementById('disclaimer-modal');
+            const btn = document.getElementById('agree-btn');
+            const countSpan = document.getElementById('countdown');
+            
+            modal.classList.remove('hidden');
+            
+            let count = 5;
+            const timer = setInterval(() => {
+                count--;
+                if (count <= 0) {
+                    clearInterval(timer);
+                    btn.disabled = false;
+                    btn.textContent = '我已阅读并同意';
+                    btn.classList.remove('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
+                    btn.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+                } else {
+                    countSpan.textContent = count;
+                }
+            }, 1000);
+        }
+
+        function acceptAgreement() {
+            localStorage.setItem('agreed_v2', 'true');
+            document.getElementById('disclaimer-modal').classList.add('hidden');
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            loadModels();
+            initDisclaimer();
+            
+            // Close modal on outside click
+            document.getElementById('guide-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'guide-modal') closeGuideModal();
+            });
+        });
+
+    </script>
+</body>
+</html>
