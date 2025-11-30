@@ -9,7 +9,6 @@ import ModelList from './components/ModelList';
 import FAQSection from './components/FAQSection';
 import Toast from './components/Toast';
 import GuideModal from './components/GuideModal';
-import DisclaimerModal from './components/DisclaimerModal';
 
 function App() {
   const [modelCount, setModelCount] = useState(0);
@@ -49,7 +48,6 @@ function App() {
         {/* Global Components */}
         <Toast />
         <GuideModal />
-        <DisclaimerModal />
       </div>
     </AppProvider>
   );

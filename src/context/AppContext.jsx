@@ -14,7 +14,6 @@ export const AppProvider = ({ children }) => {
   const [theme, setTheme] = useState('light');
   const [toast, setToast] = useState({ show: false, message: '', icon: 'fa-check-circle' });
   const [guideModal, setGuideModal] = useState({ show: false, type: '' });
-  const [disclaimerModal, setDisclaimerModal] = useState(false);
 
   // 初始化主题
   useEffect(() => {
@@ -99,20 +98,6 @@ export const AppProvider = ({ children }) => {
     setGuideModal({ show: false, type: '' });
   };
 
-  // 检查免责声明
-  useEffect(() => {
-    const agreed = localStorage.getItem('agreed_v2');
-    if (!agreed) {
-      setDisclaimerModal(true);
-    }
-  }, []);
-
-  // 同意免责声明
-  const acceptDisclaimer = () => {
-    localStorage.setItem('agreed_v2', 'true');
-    setDisclaimerModal(false);
-  };
-
   const value = {
     theme,
     toggleTheme,
@@ -122,8 +107,6 @@ export const AppProvider = ({ children }) => {
     guideModal,
     openGuideModal,
     closeGuideModal,
-    disclaimerModal,
-    acceptDisclaimer,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
