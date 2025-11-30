@@ -72,16 +72,16 @@ export const FALLBACK_MODELS = [
   {
     id: "claude-sonnet-4-5",
     name: "Claude Sonnet 4.5",
-    input: "¥3.0000/M",
-    output: "¥15.0000/M",
+    input: "¥4.0000/M",
+    output: "¥20.0000/M",
     context: "1M",
     features: ["推荐", "思考模式", "超长上下文"]
   },
   {
     id: "claude-sonnet-4-5-20250929",
     name: "Claude Sonnet 4.5",
-    input: "¥3.0000/M",
-    output: "¥15.0000/M",
+    input: "¥4.0000/M",
+    output: "¥20.0000/M",
     context: "1M",
     features: ["最新版", "思考模式", "超长上下文"]
   }

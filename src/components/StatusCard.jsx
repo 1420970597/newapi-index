@@ -24,7 +24,7 @@ const StatusCard = () => {
         </div>
       </div>
       <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-        <p className="text-xs text-gray-400 dark:text-gray-500">充值享 3 折优惠 · 汇率 1:1</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500">充值享 4 折优惠 · 汇率 1:1</p>
       </div>
     </div>
   );

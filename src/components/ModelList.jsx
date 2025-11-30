@@ -122,7 +122,7 @@ const ModelList = ({ onModelCountChange }) => {
           <div className="text-sm text-gray-700 dark:text-gray-300">
             <p className="font-semibold mb-1">💰 优惠说明</p>
             <p>• 汇率：1 美金 = 1 人民币</p>
-            <p>• 充值享受 <span className="font-bold text-blue-600 dark:text-blue-400">3 折优惠</span></p>
+            <p>• 充值享受 <span className="font-bold text-blue-600 dark:text-blue-400">4 折优惠</span></p>
             <p>• 点击模型卡片可复制模型 ID</p>
           </div>
         </div>
